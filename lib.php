@@ -18,6 +18,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class tinymce_panoptobutton extends editor_tinymce_plugin {
  /** @var array list of buttons defined by this plugin */
+    
     protected $buttons = array('panoptobutton');
 
     protected function update_init_params(array &$params, context $context,

@@ -2,8 +2,8 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="tiny_mce_popup.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/tiny_mce_popup.js"></script>
 
     <script>
         //Replace servername (inside quotations) with target panoptoservername
@@ -14,30 +14,28 @@
 
         $(document).ready(function () {
 
-
-
-            //default panopto id is blank
-            panoptoID = ""
-
-            //set panopto ID string to value returned from grabber
-            $.get(filepath, function (data) {
-                panoptoID = data;
-            });
-
-            $('#pageframe').attr('src', "https://demo.hosted.panopto.com/Panopto/Pages/Sessions/EmbeddedUpload.aspx" + panoptoID);
-            //Hide insert button initially, until a video is selected
-            $("#insert").hide();
-
             //Setup for message handling from iframe
             var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
             var eventEnter = window[eventMethod];
             var messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
 
+            //default panopto id is blank
+            var panoptoID = "";
+
+            //set panopto ID string to value returned from grabber
+            //(string returned will contain '?id=' if an id exists, and will be blank if it does not)
+            $.get(filepath, function (data) {
+                panoptoID = data;
+            });
+
+            $('#pageframe').attr('src', servername + "/Panopto/Pages/Sessions/EmbeddedUpload.aspx" + panoptoID);
+            //Hide insert button initially, until a video is selected
+            $("#insert").hide();
+
             // Listen to message from child iframe
             eventEnter(messageEvent, function (e) {
 
-                var ids = [],
-                message = JSON.parse(e.data);
+                var message = JSON.parse(e.data);
 
                 //If a video is chosen, show the "Insert" button
                 if (message.cmd === 'ready') {
@@ -51,10 +49,8 @@
 
                 //Called when "Insert" is clicked. Creates HTML for embedding each selected video into the editor
                 if (message.cmd === 'deliveryList') {
-                    ids = message.ids;
-                    
 
-                    $.each(ids, function (key, value) {
+                    $.each(message.ids, function (key, value) {
                         var iframeString = "<iframe src=\"" + servername + "/Panopto/Pages/Embed.aspx?id=" + value + "&v=1\" width=\"450\" height=\"300\" frameborder=\"0\"></iframe><br>";
                         window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, iframeString);
                     });
@@ -79,8 +75,8 @@
     <title>Test Dialog</title>
 </head>
 <body>
-    <div id='pagediv' name='pagediv'>
-        <iframe id="pageframe" width="780" height="550"></iframe>
+    <div id='pagediv'>
+        <iframe id="pageframe" width="990" height="680"></iframe>
     </div>
 
     <button id="insert">Insert</button>
