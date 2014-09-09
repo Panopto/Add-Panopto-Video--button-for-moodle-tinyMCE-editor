@@ -1,5 +1,8 @@
 Instructions for installing the Panopto button for the TinyMCE editor in Moodle:
 
+--Installation Note: This plugin is intended to be installed along with the Panopto plugin for Moodle, which can be found at: https://github.com/Panopto/Moodle-2.0-Plugin-for-Panopto
+  The Panopto plugin is pre-requisite for installing and running the Panopto button for TinyMCE
+
 1. Copy the entire "panoptobutton" directory into TinyMCE's plugin directory at <Moodle Server>/moodle/lib/editor/tinymce/plugins
 
 2. Edit line 10 of panoptobutton/tinymce/panoptowrapper.html
