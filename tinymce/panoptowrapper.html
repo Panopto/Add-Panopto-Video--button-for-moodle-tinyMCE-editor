@@ -51,8 +51,8 @@
                 if (message.cmd === 'deliveryList') {
 
                     $.each(message.ids, function (key, value) {
-                        var iframeString = "<iframe src=\"" + servername + "/Panopto/Pages/Embed.aspx?id=" + value + "&v=1\" width=\"450\" height=\"300\" frameborder=\"0\"></iframe><br>";
-                        window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, iframeString);
+                        var embedString = "<object data=\"" + servername + "/Panopto/Pages/Embed.aspx?id=" + value + "&v=1\" width=\"450\" height=\"300\" frameborder=\"0\"></object><br>";
+                        window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, embedString);
                     });
 
                     tinyMCEPopup.close();
