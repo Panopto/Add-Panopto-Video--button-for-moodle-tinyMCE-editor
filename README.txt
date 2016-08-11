@@ -5,11 +5,11 @@ Instructions for installing the Panopto button for the TinyMCE editor in Moodle:
 
 1. Copy the entire "panoptobutton" directory into TinyMCE's plugin directory at <Moodle Server>/moodle/lib/editor/tinymce/plugins
 
-2. Navigate to your moodle server within a browser (refresh the page if it is already open) and follow the instructions to complete the plugin's installation.
+2. Navigate to your Moodle server within a browser (refresh the page if it is already open) and follow the instructions to complete the plugin's installation.
 
-3. From the moodle server in your browser navigate to the "Add Panopto Video" plugin settings under Plugins -> Text Editors -> TinyMCE -> Add Panopto Video. 
+3. From the Moodle server in your browser navigate to the "Add Panopto Video" plugin settings under Site Administration -> Plugins -> Text Editors -> TinyMCE -> Add Panopto Video. 
     
-    Set the Panopto Server Name setting to be the base address of your desired server.
+    Set the Panopto Server Address setting to be the base address of your desired server.
     Note: if you are using Site Wide SSL that the link needs to be 'https' instead of 'http'. So: 'https://demo.hosted.panopto.com';
 
   

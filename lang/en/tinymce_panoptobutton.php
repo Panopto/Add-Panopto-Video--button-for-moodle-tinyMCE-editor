@@ -23,6 +23,5 @@
  */
  
 $string['pluginname'] = 'Add Panopto Video';
-$string['panopto_servername'] = 'Panopto Server Name';
-$string['panopto_servername_desc'] = 'Panopto server that the tinymce add Panopto Video button adds videos from';
+$string['panopto_servername'] = 'Panopto Server Address';
 
