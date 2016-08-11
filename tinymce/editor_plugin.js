@@ -24,7 +24,7 @@
             ed.addButton('panoptobutton', {
                 title: 'Add Panopto Video',
                 cmd: 'mcePanopto',
-                image: url + '/img/panopto_logo_globe.gif'
+                image: url + '/img/panopto_logo_globe.png'
             });
 
             // Add a node change handler, selects the button in the UI when a image is selected
