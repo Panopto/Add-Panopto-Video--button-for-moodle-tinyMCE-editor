@@ -6,8 +6,13 @@
     <script type="text/javascript" src="js/tiny_mce_popup.js"></script>
 
     <script>
+        function getHashValue(key) {
+            var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
+            return matches ? matches[1] : null;
+        }
+    
         //Replace servername (inside quotations) with target panoptoservername
-        var servername = 'http://demo.hosted.panopto.com';
+        var servername = getHashValue('servername');
 
         //set filepath for panopto id grabber function
         var filepath = tinyMCEPopup.getWindowArg('filepath') + 'panoptobutton/grabber.php';
