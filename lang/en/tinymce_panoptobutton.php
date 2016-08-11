@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_panoptobutton', language 'en'.
+ * Strings for component 'tinymce_panoptobutton', language 'en'.
  *
  * @package   tinymce_panoptobutton
  * @copyright COPYRIGHTINFO
