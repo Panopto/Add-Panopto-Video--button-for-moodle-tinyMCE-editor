@@ -15,13 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tinymce_panoptobutton', language 'en'.
+ * panoptobutton settings.
  *
  * @package   tinymce_panoptobutton
  * @copyright COPYRIGHTINFO
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
-$string['pluginname'] = 'Add Panopto Video';
-$string['panopto_servername'] = 'Panopto Server Address';
+defined('MOODLE_INTERNAL') || die;
+
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configtext('tinymce_panoptobutton/panoptoservername', 
+        get_string('panopto_servername', 'tinymce_panoptobutton'), '', 'http://demo.hosted.panopto.com'));
+}
 

@@ -24,6 +24,11 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
     protected function update_init_params(array &$params, context $context,
             array $options = null) {
 
+        $servername = $this->get_config('panoptoservername');
+        if (!empty($servername)) {
+            $params['panoptoservername'] = $servername;
+        }
+
         if ($row = $this->find_button($params, 'moodlenolink')) {
             // Add button after 'moodlenolink'.
             $this->add_button_after($params, $row, 'panoptobutton', 'moodlenolink');

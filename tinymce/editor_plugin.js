@@ -10,7 +10,7 @@
             // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
             ed.addCommand('mcePanopto', function () {
                 ed.windowManager.open({
-                    file: ed.getParam("moodle_plugin_base") + 'panoptobutton/tinymce/panoptowrapper.html',
+                    file: ed.getParam("moodle_plugin_base") + 'panoptobutton/tinymce/panoptowrapper.html#servername=' + ed.getParam('panoptoservername'),
                     width: 1024,
                     height: 720,
                     inline: 1
@@ -24,7 +24,7 @@
             ed.addButton('panoptobutton', {
                 title: 'Add Panopto Video',
                 cmd: 'mcePanopto',
-                image: url + '/img/panopto_logo_globe.gif'
+                image: url + '/img/panopto_logo_globe.png'
             });
 
             // Add a node change handler, selects the button in the UI when a image is selected
