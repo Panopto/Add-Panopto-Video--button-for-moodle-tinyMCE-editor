@@ -17,11 +17,10 @@
 /**
  * Strings for component 'tinymce_panoptobutton', language 'en'.
  *
- * @package   tinymce_panoptobutton
- * @copyright COPYRIGHTINFO
+ * @copyright Panopto 2009 - 2016
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 $string['pluginname'] = 'Add Panopto Video';
 $string['panopto_servername'] = 'Panopto Server Address';
 

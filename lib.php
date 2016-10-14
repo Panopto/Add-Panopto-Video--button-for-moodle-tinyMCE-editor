@@ -14,13 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * library for component 'tinymce_panoptobutton'.
+ *
+ * @package   tinymce_panoptobutton
+ * @copyright Panopto 2009 - 2016
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * class for component 'tinymce_panoptobutton'.
+ *
+ * @copyright Panopto 2009 - 2016 With contributions from Joseph Malmsten (joseph.malmsten@gmail.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class tinymce_panoptobutton extends editor_tinymce_plugin {
- /** @var array list of buttons defined by this plugin */
-    
+
+    /**
+     * @var array $buttons
+     */
     protected $buttons = array('panoptobutton');
 
+    /**
+     * used to update the params for initialization
+     *
+     * @param array $params the params to be updated
+     * @param context $context
+     * @param array $options optional params
+     */
     protected function update_init_params(array &$params, context $context,
             array $options = null) {
 
@@ -41,5 +64,3 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
         $this->add_js_plugin($params);
     }
 }
-
-?>

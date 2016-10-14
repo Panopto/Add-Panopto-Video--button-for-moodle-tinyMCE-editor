@@ -6,14 +6,14 @@
     <script type="text/javascript" src="js/tiny_mce_popup.js"></script>
 
     <script>
-	
-	// Got code to grab hash from url from the following StackOverflow post.
-	// http://stackoverflow.com/questions/11920697/how-to-get-hash-value-in-a-url-in-js
+
+    // Got code to grab hash from url from the following StackOverflow post.
+    // http://stackoverflow.com/questions/11920697/how-to-get-hash-value-in-a-url-in-js
         function getHashValue(key) {
             var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
             return matches ? matches[1] : null;
         }
-    
+
         // Get the servername from the Hashvalue that was set by TinyMCE popup call.
         var servername = getHashValue('servername');
 
@@ -59,7 +59,9 @@
                 if (message.cmd === 'deliveryList') {
 
                     $.each(message.ids, function (key, value) {
-                        var embedString = "<object data=\"" + servername + "/Panopto/Pages/Embed.aspx?id=" + value + "&v=1\" width=\"450\" height=\"300\" frameborder=\"0\"></object><br>";
+                        var embedString = "<object data=\"" + servername + '/Panopto/Pages/Embed.aspx?id=' +
+                        value +
+                        '&v="1" width="450" height="300" frameborder="0"></object><br>';
                         window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, embedString);
                     });
 
@@ -67,13 +69,13 @@
                 }
             }, false);
 
-            $("#insert").click(function () {
+            $('#insert').click(function () {
                 var win = document.getElementById("pageframe").contentWindow,
                 message = { cmd: "createEmbeddedFrame" };
                 win.postMessage(JSON.stringify(message), servername);
             });
 
-            $("#cancel").click(function () {
+            $('#cancel').click(function () {
                 tinyMCEPopup.close();
             });
         });

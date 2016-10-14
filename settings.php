@@ -17,15 +17,14 @@
 /**
  * panoptobutton settings.
  *
- * @package   tinymce_panoptobutton
- * @copyright COPYRIGHTINFO
+ * @copyright Panopto 2009 - 2016
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_configtext('tinymce_panoptobutton/panoptoservername', 
+    $settings->add(new admin_setting_configtext('tinymce_panoptobutton/panoptoservername',
         get_string('panopto_servername', 'tinymce_panoptobutton'), '', 'http://demo.hosted.panopto.com'));
 }
 
