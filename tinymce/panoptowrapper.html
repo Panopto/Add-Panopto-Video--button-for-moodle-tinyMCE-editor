@@ -6,39 +6,28 @@
     <script type="text/javascript" src="js/tiny_mce_popup.js"></script>
 
     <script>
-
-    // Got code to grab hash from url from the following StackOverflow post.
-    // http://stackoverflow.com/questions/11920697/how-to-get-hash-value-in-a-url-in-js
+        // Got code to grab hash from url from the following StackOverflow post.
+        // http://stackoverflow.com/questions/11920697/how-to-get-hash-value-in-a-url-in-js
         function getHashValue(key) {
             var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
             return matches ? matches[1] : null;
         }
 
-        // Get the servername from the Hashvalue that was set by TinyMCE popup call.
-        var servername = getHashValue('servername');
-
-        //set filepath for panopto id grabber function
-        var filepath = tinyMCEPopup.getWindowArg('filepath') + 'panoptobutton/grabber.php';
+            // Get the servername from the Hashvalue that was set by TinyMCE popup call.
+        var servername = getHashValue('servername'),
+            // Get the Id of the active panopto course folder.
+            panoptoid   = getHashValue('panoptoid');
 
         $(document).ready(function () {
 
             //Setup for message handling from iframe
-            var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-            var eventEnter = window[eventMethod];
-            var messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
+            var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent',
+                eventEnter = window[eventMethod],
+                messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
-            //default panopto id is blank
-            var panoptoID = "";
-
-            //set panopto ID string to value returned from grabber
-            //(string returned will contain '?id=' if an id exists, and will be blank if it does not)
-            $.get(filepath, function (data) {
-                panoptoID = data;
-            });
-
-            $('#pageframe').attr('src', servername + "/Panopto/Pages/Sessions/EmbeddedUpload.aspx" + panoptoID);
+            $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?folderID=' + panoptoid);
             //Hide insert button initially, until a video is selected
-            $("#insert").hide();
+            $('#insert').hide();
 
             // Listen to message from child iframe
             eventEnter(messageEvent, function (e) {
@@ -47,20 +36,20 @@
 
                 //If a video is chosen, show the "Insert" button
                 if (message.cmd === 'ready') {
-                    $("#insert").show();
+                    $('#insert').show();
                 }
 
                 //If no video is chosen, hide the "Insert" button
                 if (message.cmd === 'notReady') {
-                    $("#insert").hide();
+                    $('#insert').hide();
                 }
 
                 //Called when "Insert" is clicked. Creates HTML for embedding each selected video into the editor
                 if (message.cmd === 'deliveryList') {
 
                     $.each(message.ids, function (key, value) {
-                        var embedString = "<object data=\"" + servername + '/Panopto/Pages/Embed.aspx?id=' +
-                        value +
+                        var embedString = '<object data="' + servername + '/Panopto/Pages/Embed.aspx?id=' +
+                        value + '"' +
                         '&v="1" width="450" height="300" frameborder="0"></object><br>';
                         window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, embedString);
                     });
@@ -70,8 +59,10 @@
             }, false);
 
             $('#insert').click(function () {
-                var win = document.getElementById("pageframe").contentWindow,
-                message = { cmd: "createEmbeddedFrame" };
+                var win = document.getElementById('pageframe').contentWindow,
+                    message = {
+                        cmd: 'createEmbeddedFrame'
+                    };
                 win.postMessage(JSON.stringify(message), servername);
             });
 

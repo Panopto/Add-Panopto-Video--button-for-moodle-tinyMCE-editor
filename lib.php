@@ -25,6 +25,17 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
+ * returns the Panopto id for the given the moodle course id
+ *
+ * @param int $courseid the moodle id of the course we are looking for.
+ *
+ */
+function get_panopto_course_id($courseid) {
+    global $DB;
+    return $DB->get_field('block_panopto_foldermap', 'panopto_id', array('moodleid' => $courseid));
+}
+
+/**
  * class for component 'tinymce_panoptobutton'.
  *
  * @copyright Panopto 2009 - 2016 With contributions from Joseph Malmsten (joseph.malmsten@gmail.com)
@@ -44,13 +55,15 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
      * @param context $context
      * @param array $options optional params
      */
-    protected function update_init_params(array &$params, context $context,
-            array $options = null) {
+    protected function update_init_params(array &$params, context $context, array $options = null) {
+        global $COURSE;
 
         $servername = $this->get_config('panoptoservername');
         if (!empty($servername)) {
             $params['panoptoservername'] = $servername;
         }
+
+        $params['panoptoid'] = get_panopto_course_id($COURSE->id);
 
         if ($row = $this->find_button($params, 'moodlenolink')) {
             // Add button after 'moodlenolink'.

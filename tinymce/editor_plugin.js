@@ -10,7 +10,9 @@
             // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample').
             ed.addCommand('mcePanopto', function () {
                 ed.windowManager.open({
-                    file: ed.getParam('moodle_plugin_base') + 'panoptobutton/tinymce/panoptowrapper.html#servername=' + ed.getParam('panoptoservername'),
+                    file: ed.getParam('moodle_plugin_base') + 'panoptobutton/tinymce/panoptowrapper.html#' +
+                        'servername=' + ed.getParam('panoptoservername') +
+                        '&panoptoid=' + ed.getParam('panoptoid'),
                     width: 1024,
                     height: 720,
                     inline: 1
