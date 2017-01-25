@@ -32,7 +32,11 @@
             // Listen to message from child iframe
             eventEnter(messageEvent, function (e) {
 
-                var message = JSON.parse(e.data);
+                var message = JSON.parse(e.data),
+                    thumbnailChunk = '',
+                    embedString = '',
+                    ids = message.ids,
+                    names = message.names;
 
                 //If a video is chosen, show the "Insert" button
                 if (message.cmd === 'ready') {
@@ -46,14 +50,32 @@
 
                 //Called when "Insert" is clicked. Creates HTML for embedding each selected video into the editor
                 if (message.cmd === 'deliveryList') {
+                    ids = message.ids;
+                    for (var i = 0; i < ids.length; ++i) {
 
-                    $.each(message.ids, function (key, value) {
-                        var embedString = '<object data="' + servername + '/Panopto/Pages/Embed.aspx?id=' +
-                        value + '"' +
-                        '&v="1" width="450" height="300" frameborder="0"></object><br>';
-                        window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, embedString);
-                    });
+                        thumbnailChunk = "<div style='position: absolute; z-index: -1;'>";
 
+                        if (typeof names[i] !== 'undefined') {
+                            thumbnailChunk += "<div width='450'><a style='max-width: 450px; display: inline-block;" +
+                                "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'" +
+                                "href='" + servername + '/Panopto/Pages/Viewer.aspx?id=' + ids[i] +
+                                "' target='_blank'>" + names[i] + "</a></div>";
+                        }
+
+                        thumbnailChunk += "<a href='" + servername + '/Panopto/Pages/Viewer.aspx?id=' +
+                            ids[i] + "' target='_blank'>" +
+                            "<img width='128' height='72' src='" + servername + '/Panopto/PublicAPI/SessionPreviewImage?id=' +
+                            ids[i] + "'></img></a><br></div>";
+
+                        embedString += "<div style='position: relative;'>" +
+                            thumbnailChunk +
+                            "<div>" + "<object data='" + servername + '/Panopto/Pages/Embed.aspx?id=' +
+                            ids[i] +
+                            "&v=1' width='450' height='300' frameborder='0'></object><br></div>" +
+                            "</div>";
+                    }
+
+                    window.parent.tinyMCE.activeEditor.execCommand('mceInsertContent', 0, embedString);
                     tinyMCEPopup.close();
                 }
             }, false);
