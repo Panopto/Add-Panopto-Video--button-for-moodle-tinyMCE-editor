@@ -23,4 +23,6 @@
 
 $string['pluginname'] = 'Add Panopto Video';
 $string['panopto_servername'] = 'Panopto Server Address';
+$string['panopto_button_description'] = 'Add Panopto Video';
+$string['panopto_button_long_description'] = 'Add Panopto Video Content to TinyMCE';
 

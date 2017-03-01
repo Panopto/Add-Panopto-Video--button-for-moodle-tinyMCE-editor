@@ -65,6 +65,9 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
 
         $params['panoptoid'] = get_panopto_course_id($COURSE->id);
 
+        $params['panoptobuttondescription'] = get_string('panopto_button_description', 'tinymce_panoptobutton');
+        $params['panoptobuttonlongdescription'] = get_string('panopto_button_long_description', 'tinymce_panoptobutton');
+
         if ($row = $this->find_button($params, 'moodlenolink')) {
             // Add button after 'moodlenolink'.
             $this->add_button_after($params, $row, 'panoptobutton', 'moodlenolink');
