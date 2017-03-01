@@ -24,7 +24,7 @@
 
             // Register example button.
             ed.addButton('panoptobutton', {
-                title: 'Add Panopto Video',
+                title: ed.getParam('panoptobuttondescription'),
                 cmd: 'mcePanopto',
                 image: url + '/img/panopto_logo_globe.png'
             });
@@ -43,7 +43,7 @@
         // Returns creator and version info about plugin.
         getInfo: function () {
             return {
-                longname: 'Add Panopto Video Content to TinyMCE',
+                longname: ed.getParam('panoptobuttonlongdescription'),
                 author: 'Panopto',
                 version: "1.0"
             };
