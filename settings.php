@@ -25,6 +25,6 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('tinymce_panoptobutton/panoptoservername',
-        get_string('panopto_servername', 'tinymce_panoptobutton'), '', 'http://demo.hosted.panopto.com'));
+        get_string('panopto_servername', 'tinymce_panoptobutton'), '', 'https://demo.hosted.panopto.com'));
 }
 
