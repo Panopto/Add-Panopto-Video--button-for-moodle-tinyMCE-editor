@@ -25,7 +25,7 @@
                 eventEnter = window[eventMethod],
                 messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
-            $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?folderID=' + panoptoid);
+            $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true&folderID=' + panoptoid);
             //Hide insert button initially, until a video is selected
             $('#insert').hide();
 
@@ -34,9 +34,13 @@
 
                 var message = JSON.parse(e.data),
                     thumbnailChunk = '',
+                    idChunk = '',
                     embedString = '',
                     ids = message.ids,
-                    names = message.names;
+                    names = message.names,
+                    VIDEO_EMBED_ID = 0,
+                    PLAYLIST_EMBED_ID = 1;
+
 
                 //If a video is chosen, show the "Insert" button
                 if (message.cmd === 'ready') {
@@ -50,28 +54,36 @@
 
                 //Called when "Insert" is clicked. Creates HTML for embedding each selected video into the editor
                 if (message.cmd === 'deliveryList') {
+
                     ids = message.ids;
                     for (var i = 0; i < ids.length; ++i) {
 
                         thumbnailChunk = "<div style='position: absolute; z-index: -1;'>";
 
+
+
+                        if (message.playableObjectTypes && (parseInt(message.playableObjectTypes[i]) === PLAYLIST_EMBED_ID)){
+                            idChunk = "?pid=" + ids[i];
+                        } else {
+                            idChunk = "?id=" + ids[i];
+                        }
+
                         if (typeof names[i] !== 'undefined') {
                             thumbnailChunk += "<div width='450'><a style='max-width: 450px; display: inline-block;" +
                                 "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'" +
-                                "href='" + servername + '/Panopto/Pages/Viewer.aspx?id=' + ids[i] +
+                                "href='" + servername + '/Panopto/Pages/Viewer.aspx' + idChunk +
                                 "' target='_blank'>" + names[i] + "</a></div>";
                         }
 
-                        thumbnailChunk += "<a href='" + servername + '/Panopto/Pages/Viewer.aspx?id=' +
-                            ids[i] + "' target='_blank'>" +
+                        thumbnailChunk += "<a href='" + servername + '/Panopto/Pages/Viewer.aspx' +
+                            idChunk + "' target='_blank'>" +
                             "<img width='128' height='72' src='" + servername + '/Panopto/PublicAPI/SessionPreviewImage?id=' +
                             ids[i] + "'></img></a><br></div>";
 
                         embedString += "<div style='position: relative;'>" +
                             thumbnailChunk +
-                            "<div>" + "<object data='" + servername + '/Panopto/Pages/Embed.aspx?id=' +
-                            ids[i] +
-                            "&v=1' width='450' height='300' frameborder='0'></object><br></div>" +
+                            "<div>" + "<iframe src='" + servername + "/Panopto/Pages/Embed.aspx" +
+                            idChunk + "&v=1' width='450' height='300' frameborder='0'></iframe><br></div>" +
                             "</div>";
                     }
 
