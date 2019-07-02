@@ -16,7 +16,8 @@
             // Get the servername from the Hashvalue that was set by TinyMCE popup call.
         var servername = getHashValue('servername'),
             // Get the Id of the active panopto course folder.
-            panoptoid   = getHashValue('panoptoid');
+            panoptoid   = getHashValue('panoptoid'),
+            unprovisionederror = decodeURIComponent(getHashValue('unprovisionerror'));
 
         $(document).ready(function () {
 
@@ -25,7 +26,14 @@
                 eventEnter = window[eventMethod],
                 messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
-            $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true&folderID=' + panoptoid);
+            if (!panoptoid || !servername) {
+                // Add the panopto error text to the error container. Also hide the iframe so the user does not try to access a broken iframe.
+                $('#errorcontainer').css("display", "block");
+                $('#pageframe').css("display", "none");
+                $('#errorcontainer').html(unprovisionederror);
+            } else {
+                $('#pageframe').attr('src', 'https://' + servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true&folderID=' + panoptoid);
+            }
             //Hide insert button initially, until a video is selected
             $('#insert').hide();
 
@@ -113,6 +121,7 @@
     <div id='pagediv'>
         <iframe id="pageframe" width="990" height="680"></iframe>
     </div>
+    <div id='errorcontainer' style="display:none;font-size: 20px; color: red;margin-top:75px;"></div>
 
     <button id="insert">Insert</button>
     <button id="cancel">Cancel</button>
