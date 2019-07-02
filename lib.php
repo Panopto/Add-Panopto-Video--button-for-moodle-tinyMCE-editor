@@ -36,6 +36,17 @@ function get_panopto_course_id($courseid) {
 }
 
 /**
+ * returns the Panopto server for the given the moodle course id
+ *
+ * @param int $courseid the moodle id of the course we are looking for.
+ *
+ */
+function get_panopto_course_server($courseid) {
+    global $DB;
+    return $DB->get_field('block_panopto_foldermap', 'panopto_server', array('moodleid' => $courseid));
+}
+
+/**
  * class for component 'tinymce_panoptobutton'.
  *
  * @copyright Panopto 2009 - 2016 With contributions from Joseph Malmsten (joseph.malmsten@gmail.com)
@@ -58,15 +69,19 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
     protected function update_init_params(array &$params, context $context, array $options = null) {
         global $COURSE;
 
-        $servername = $this->get_config('panoptoservername');
+        $servername = get_panopto_course_server($COURSE->id);
         if (!empty($servername)) {
             $params['panoptoservername'] = $servername;
         }
 
-        $params['panoptoid'] = get_panopto_course_id($COURSE->id);
+        $panoptoid = get_panopto_course_id($COURSE->id);
+        if (!empty($panoptoid)) {
+            $params['panoptoid'] = $panoptoid;
+        }
 
         $params['panoptobuttondescription'] = get_string('panopto_button_description', 'tinymce_panoptobutton');
         $params['panoptobuttonlongdescription'] = get_string('panopto_button_long_description', 'tinymce_panoptobutton');
+        $params['unprovisionederror'] = get_string('panopto_button_unprovisioned_error', 'tinymce_panoptobutton');
 
         if ($row = $this->find_button($params, 'moodlenolink')) {
             // Add button after 'moodlenolink'.
