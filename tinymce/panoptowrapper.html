@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -79,18 +79,18 @@
                         if (typeof names[i] !== 'undefined') {
                             thumbnailChunk += "<div width='450'><a style='max-width: 450px; display: inline-block;" +
                                 "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'" +
-                                "href='" + servername + '/Panopto/Pages/Viewer.aspx' + idChunk +
+                                "href='" + 'https://' + servername + '/Panopto/Pages/Viewer.aspx' + idChunk +
                                 "' target='_blank'>" + names[i] + "</a></div>";
                         }
 
-                        thumbnailChunk += "<a href='" + servername + '/Panopto/Pages/Viewer.aspx' +
+                        thumbnailChunk += "<a href='" + 'https://' + servername + '/Panopto/Pages/Viewer.aspx' +
                             idChunk + "' target='_blank'>" +
-                            "<img width='128' height='72' src='" + servername + '/Panopto/PublicAPI/SessionPreviewImage?id=' +
+                            "<img width='128' height='72' src='" + 'https://' + servername + '/Panopto/PublicAPI/SessionPreviewImage?id=' +
                             ids[i] + "'></img></a><br></div>";
 
                         embedString += "<div style='position: relative;'>" +
                             thumbnailChunk +
-                            "<div>" + "<iframe src='" + servername + "/Panopto/Pages/Embed.aspx" +
+                            "<div>" + "<iframe src='" + 'https://' + servername + "/Panopto/Pages/Embed.aspx" +
                             idChunk + "&v=1' width='450' height='300' frameborder='0' allowfullscreen></iframe><br></div>" +
                             "</div>";
                     }
@@ -105,7 +105,7 @@
                     message = {
                         cmd: 'createEmbeddedFrame'
                     };
-                win.postMessage(JSON.stringify(message), servername);
+                win.postMessage(JSON.stringify(message), 'https://' + servername);
             });
 
             $('#cancel').click(function () {
