@@ -79,6 +79,11 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
             $params['panoptoid'] = $panoptoid;
         }
 
+        $instancename = get_config('block_panopto', 'instance_name');
+        if (!empty($instancename)) {
+            $params['instancename'] = $instancename;
+        }
+
         $params['panoptobuttondescription'] = get_string('panopto_button_description', 'tinymce_panoptobutton');
         $params['panoptobuttonlongdescription'] = get_string('panopto_button_long_description', 'tinymce_panoptobutton');
         $params['unprovisionederror'] = get_string('panopto_button_unprovisioned_error', 'tinymce_panoptobutton');
