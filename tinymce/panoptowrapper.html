@@ -38,7 +38,8 @@
                 $('#pageframe').css("display", "none");
                 $('#errorcontainer').html(unprovisionederror);
             } else {
-                $('#pageframe').attr('src', 'https://' + servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true' + instanceString + '&folderID=' + panoptoid);
+                servername = 'https://' + servername;
+                $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true' + instanceString + '&folderID=' + panoptoid);
             }
             //Hide insert button initially, until a video is selected
             $('#insert').hide();
