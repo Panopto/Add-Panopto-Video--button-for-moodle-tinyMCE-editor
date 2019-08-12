@@ -17,6 +17,8 @@
         var servername = getHashValue('servername'),
             // Get the Id of the active panopto course folder.
             panoptoid   = getHashValue('panoptoid'),
+            instanceParam   = getHashValue('instance'),
+            instanceString = ''
             unprovisionederror = decodeURIComponent(getHashValue('unprovisionerror'));
 
         $(document).ready(function () {
@@ -26,13 +28,17 @@
                 eventEnter = window[eventMethod],
                 messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
+            if (instanceParam) {
+                instanceString = '&instance=' + instanceParam;
+            }
+
             if (!panoptoid || !servername) {
                 // Add the panopto error text to the error container. Also hide the iframe so the user does not try to access a broken iframe.
                 $('#errorcontainer').css("display", "block");
                 $('#pageframe').css("display", "none");
                 $('#errorcontainer').html(unprovisionederror);
             } else {
-                $('#pageframe').attr('src', 'https://' + servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true&folderID=' + panoptoid);
+                $('#pageframe').attr('src', 'https://' + servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true' + instanceString + '&folderID=' + panoptoid);
             }
             //Hide insert button initially, until a video is selected
             $('#insert').hide();

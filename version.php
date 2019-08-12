@@ -23,6 +23,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019070100;  // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051200;  // Requires this Moodle version - 2.7.
-$plugin->component = 'tinymce_panoptobutton';  // Full name of the plugin (used for diagnostics).
+
+// The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2019081200;  
+
+// Requires this Moodle version - 2.7.
+$plugin->requires  = 2014051200;  
+
+// Full name of the plugin (used for diagnostics).
+$plugin->component = 'tinymce_panoptobutton';  
+
+// This is considered as ready for production sites.
+$plugin->maturity = MATURITY_STABLE;
