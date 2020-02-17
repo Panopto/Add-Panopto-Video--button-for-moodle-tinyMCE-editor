@@ -11,18 +11,21 @@
             ed.addCommand('mcePanopto', function () {
                 var baseUrl = ed.getParam('moodle_plugin_base') + 'panoptobutton/tinymce/panoptowrapper.html#',
                     instanceParam = ed.getParam('instancename'),
-                    instanceString = '';
+                    defaultServer = ed.getParam('defaultserver');
 
                 baseUrl += 'unprovisionerror=' + encodeURIComponent(ed.getParam('unprovisionederror'));
-                
+
                 if (instanceParam) {
-                    instanceString = '&instance=' + instanceParam;
+                    baseUrl += '&instance=' + instanceParam;
+                }
+
+                if (defaultServer) {
+                    baseUrl += '&defaultserver=' + defaultServer;
                 }
 
                 if (ed.getParam('panoptoservername') != null &&
                     ed.getParam('panoptoid') != null) {
                     baseUrl += '&servername=' + ed.getParam('panoptoservername') +
-                               instanceString + 
                                '&panoptoid=' + ed.getParam('panoptoid');
                 }
 

@@ -87,6 +87,8 @@ class tinymce_panoptobutton extends editor_tinymce_plugin {
         $params['panoptobuttondescription'] = get_string('panopto_button_description', 'tinymce_panoptobutton');
         $params['panoptobuttonlongdescription'] = get_string('panopto_button_long_description', 'tinymce_panoptobutton');
         $params['unprovisionederror'] = get_string('panopto_button_unprovisioned_error', 'tinymce_panoptobutton');
+        // Add our default server.
+        $params['defaultserver'] = get_config('tinymce_panoptobutton', 'defaultserver');
 
         if ($row = $this->find_button($params, 'moodlenolink')) {
             // Add button after 'moodlenolink'.
