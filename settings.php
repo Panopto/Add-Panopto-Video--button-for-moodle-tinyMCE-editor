@@ -15,17 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tinymce_panoptobutton', language 'en'.
+ * panoptobutton settings.
  *
+ * @package   tinymce_panoptobutton
  * @copyright Panopto 2009 - 2016
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Add Panopto Video';
-$string['panopto_button_description'] = 'Add Panopto Video';
-$string['settings'] = 'TinyMCE Panopto';
-$string['panopto_button_long_description'] = 'Add Panopto Video Content to TinyMCE';
-$string['panopto_button_unprovisioned_error'] = 'Error: Please use the Panopto Block to provision this course before using this tool or set a default server';
-$string['privacy:metadata'] = 'No user data is stored by this plugin';
-$string['defaultserver'] = 'Default server for retrieving videos (used when not in a provisioned course)';
 
+defined('MOODLE_INTERNAL') || die();
+
+$ADMIN->add('editoratto', new admin_category('tinymce_panoptobutton', new lang_string('pluginname', 'tinymce_panoptobutton')));
+
+$settings = new admin_settingpage('tinymce_panoptobutton_settings', new lang_string('settings', 'tinymce_panoptobutton'));
+if ($ADMIN->fulltree) {
+    // An option setting.
+    $settings->add(new admin_setting_configtext('tinymce_panoptobutton/defaultserver',
+        get_string('defaultserver', 'tinymce_panoptobutton'), '', 'www.example.com', PARAM_TEXT));
+}

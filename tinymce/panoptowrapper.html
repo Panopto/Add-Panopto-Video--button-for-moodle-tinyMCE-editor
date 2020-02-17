@@ -14,13 +14,15 @@
         }
 
             // Get the servername from the Hashvalue that was set by TinyMCE popup call.
-        var servername = getHashValue('servername'),
+        var aservername = getHashValue('servername'),
             // Get the Id of the active panopto course folder.
             panoptoid   = getHashValue('panoptoid'),
+            defaultserver   = getHashValue('defaultserver'),
             instanceParam   = getHashValue('instance'),
             instanceString = ''
             unprovisionederror = decodeURIComponent(getHashValue('unprovisionerror'));
 
+            servername = aservername ? aservername : defaultserver;
         $(document).ready(function () {
 
             //Setup for message handling from iframe
@@ -32,11 +34,14 @@
                 instanceString = '&instance=' + instanceParam;
             }
 
-            if (!panoptoid || !servername) {
+            if (!servername) {
                 // Add the panopto error text to the error container. Also hide the iframe so the user does not try to access a broken iframe.
                 $('#errorcontainer').css("display", "block");
                 $('#pageframe').css("display", "none");
                 $('#errorcontainer').html(unprovisionederror);
+            } else if (!panoptoid) {
+                servername = 'https://' + servername;
+                $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true' + instanceString);
             } else {
                 servername = 'https://' + servername;
                 $('#pageframe').attr('src', servername + '/Panopto/Pages/Sessions/EmbeddedUpload.aspx?playlistsEnabled=true' + instanceString + '&folderID=' + panoptoid);
