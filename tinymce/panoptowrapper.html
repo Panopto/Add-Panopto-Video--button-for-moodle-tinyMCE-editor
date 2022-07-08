@@ -72,6 +72,8 @@
 
                     ids = message.ids;
                     for (var i = 0; i < ids.length; ++i) {
+                        var sessionWidth = message.width[i] === null ? 450 : message.width[i],
+                            sessionHeight =  message.height[i] === null ? 300 : message.height[i];
 
                         thumbnailChunk = "<div style='position: absolute; z-index: -1;'>";
 
@@ -84,7 +86,7 @@
                         }
 
                         if (typeof names[i] !== 'undefined') {
-                            thumbnailChunk += "<div width='450'><a style='max-width: 450px; display: inline-block;" +
+                            thumbnailChunk += "<div width='" + sessionWidth + "'><a style='max-width: " + sessionWidth + "px; display: inline-block;" +
                                 "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'" +
                                 "href='" + servername + '/Panopto/Pages/Viewer.aspx' + idChunk +
                                 "' target='_blank'>" + names[i] + "</a></div>";
@@ -98,7 +100,7 @@
                         embedString += "<div style='position: relative;'>" +
                             thumbnailChunk +
                             "<div>" + "<iframe src='" + servername + "/Panopto/Pages/Embed.aspx" +
-                            idChunk + "&v=1' width='450' height='300' frameborder='0' allowfullscreen></iframe><br></div>" +
+                            idChunk + "&v=1' width='" + sessionWidth +"' height='" + sessionHeight + "' frameborder='0' allowfullscreen></iframe><br></div>" +
                             "</div>";
                     }
 
