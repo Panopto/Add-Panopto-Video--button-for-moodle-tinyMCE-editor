@@ -17,21 +17,20 @@
 /**
  * panoptobutton version.
  *
- * @copyright Panopto 2009 - 2016
+ * @copyright Panopto 2009 - 2023
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-
 // The current plugin version (Date: YYYYMMDDXX).
-$plugin->version   = 2022090700;  
+$plugin->version = 2023083100;
 
 // Requires this Moodle version - 2.7.
-$plugin->requires  = 2014051200;  
+$plugin->requires = 2014051200;
 
 // Full name of the plugin (used for diagnostics).
-$plugin->component = 'tinymce_panoptobutton';  
+$plugin->component = 'tinymce_panoptobutton';
 
 // This is considered as ready for production sites.
 $plugin->maturity = MATURITY_STABLE;
